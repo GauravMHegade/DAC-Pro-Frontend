@@ -44,7 +44,7 @@ function Login() {
     if (window.google) {
       google.accounts.id.initialize({
         client_id:
-          "942122630629-943dhruud3laaohl2hbv863sgs79e4dj.apps.googleusercontent.com",
+          "964860875768-af7ouf7727dr5sgma67ot6bucgkab7mt.apps.googleusercontent.com",
         callback: handleGoogleLogin
       });
 
