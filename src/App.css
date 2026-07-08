@@ -1,0 +1,363 @@
+/* ---------- GLOBAL ---------- */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ---------- APP BACKGROUND ---------- */
+.app-bg {
+  min-height: 100vh;
+  /* background: linear-gradient(90deg, #6f6af8, #9b5cf6); */
+  background:  #1E3A8A ;
+  padding-bottom: 50px;
+}
+
+/* ---------- PAGE CONTAINER ---------- */
+.page-container {
+  padding: 30px;
+  color: white;
+}
+
+/* ---------- PAGE TITLE ---------- */
+.page-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: white;
+}
+
+/* ---------- MODULE CARD ---------- */
+.module-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  height: 100%;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- MODULE TITLE ---------- */
+.module-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color:  #0F172A ;
+}
+
+/* ---------- PRACTICE BUTTON (UNCHANGED FUNCTIONALLY) ---------- */
+.btn-practice {
+  background:  #3B82F6 ;
+  border: none;
+  color: white;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-practice:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+/* ---------- MOCK SECTION ---------- */
+.mock-title {
+  text-align: center;
+  margin: 18px 0 12px;
+  color:  #0F172A ;
+  font-weight: 500;
+}
+
+/* ---------- MOCK BUTTON GROUP ---------- */
+.mock-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ---------- MOCK BUTTON (THEME PURPLE) ---------- */
+.btn-mock {
+  border: 1px solid #3B82F6 ;
+  color: #3B82F6 ;
+  background: white;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.btn-mock:hover {
+  background: #3B82F6 ;
+  color: white;
+}
+
+/* ---------- DASHBOARD BUTTON COLORS (MATCH HOME UI) ---------- */
+
+/* Start Practice Test */
+.dashboard-practice-btn {
+  background:  #3B82F6  ;
+  border: none;
+  color: white;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.dashboard-practice-btn:hover {
+  filter: brightness(1.05);
+}
+
+/* Take Next Mock Test */
+.dashboard-mock-btn {
+  background: #20327d;
+  border: none;
+  color: white;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.dashboard-mock-btn:hover {
+  filter: brightness(1.05);
+}
+
+
+/* ================= PRACTICE / QUIZ SCREEN ================= */
+
+/* Previous */
+.quiz-btn-prev {
+  background: #8a86fb;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+}
+
+/* Clear Answer */
+.quiz-btn-clear {
+  background: #F59E0B ;
+  color: black;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+}
+
+/* Next */
+.quiz-btn-next {
+  background: #8a86fb;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+}
+
+/* Submit */
+.quiz-btn-submit {
+  background: rgb(0, 117, 37);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+}
+
+/* Question status buttons */
+.question-status-btn {
+  border: 1px solid #8a86fb;
+  color: #8a86fb;
+  background: white;
+  border-radius: 6px;
+  padding: 5px 10px;
+}
+
+.question-status-btn.attempted {
+  background: #8a86fb;
+  color: white;
+}
+
+/* Progress bars */
+.progress {
+  background: #e5e7eb;
+}
+
+.progress-bar-attempted {
+  background: #8a86fb;
+}
+
+.progress-bar-unattempted {
+  background: #ba90e7;
+}
+
+
+
+/* ================= UNIFIED QUIZ BUTTON ANIMATION ================= */
+
+.quiz-btn-prev,
+.quiz-btn-next,
+.quiz-btn-clear,
+.quiz-btn-submit {
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+/* Hover lift (all buttons) */
+.quiz-btn-prev:hover,
+.quiz-btn-next:hover,
+.quiz-btn-clear:hover,
+.quiz-btn-submit:hover {
+  transform: translateY(-2px);
+}
+
+/* Click press (all buttons) */
+.quiz-btn-prev:active,
+.quiz-btn-next:active,
+.quiz-btn-clear:active,
+.quiz-btn-submit:active {
+  transform: scale(0.96);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Soft pulse animation (used by all) */
+@keyframes unifiedPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(138, 134, 251, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(138, 134, 251, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(138, 134, 251, 0);
+  }
+}
+
+/* Apply pulse on hover for ALL buttons */
+.quiz-btn-prev:hover,
+.quiz-btn-next:hover,
+.quiz-btn-clear:hover,
+.quiz-btn-submit:hover {
+  animation: unifiedPulse 1.2s infinite;
+}
+
+
+
+/* ================= NAVBAR TAB ANIMATIONS ================= */
+
+.tab {
+  position: relative;
+  padding: 8px 22px;
+  border-radius: 25px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.15s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Hover effect */
+.tab:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Active tab (pill) */
+.tab.active {
+  background: white;
+  color: #1E3A8A;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  animation: pillPop 0.35s ease;
+}
+
+/* Click press */
+.tab:active {
+  transform: scale(0.96);
+}
+
+/* Active animation */
+@keyframes pillPop {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+
+/* ================= DASHBOARD CARD ANIMATION ================= */
+
+.dashboard-card {
+  animation: cardFadeUp 0.6s ease forwards;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes cardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+/* ================= DASHBOARD BUTTON ANIMATION ================= */
+
+.dashboard-btn {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.dashboard-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+
+
+/* Make radio border darker and thicker */
+.form-check-input[type="radio"] {
+  border: 1px solid #000;   /* black border */
+  width: 18px;
+  height: 18px;
+}
+
+/* When radio is checked */
+.form-check-input[type="radio"]:checked {
+  background-color: #000;  /* black fill */
+  border-color: #000;
+}
+
+/* Optional: focus style */
+.form-check-input[type="radio"]:focus {
+  box-shadow: none;
+}

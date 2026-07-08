@@ -1,0 +1,196 @@
+/* ================= HERO SECTION ================= */
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+
+  padding: 90px 70px;
+  min-height: 420px;
+  width: 100%;
+
+  background: #f1f6ff;
+  border-radius: 24px;
+  margin-bottom: 70px;
+
+  overflow: hidden; /* 🔑 PREVENT IMAGE OVERFLOW */
+}
+
+.hero-left {
+  max-width: 520px;
+}
+
+.hero-left h1 {
+  font-size: 44px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 18px;
+}
+
+.hero-left p {
+  font-size: 17px;
+  color: #475569;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+/* ================= HERO IMAGE ================= */
+
+/* .hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;   /* 🔑 PUSH IMAGE TO RIGHT */
+  align-items: center;
+  padding-right: 50px;         /* 🔑 FINE ADJUSTMENT */
+}
+
+
+
+
+
+.hero-right img {
+  width: 100%;
+  max-width: 600px;     /* 🔑 INCREASE IMAGE SIZE */
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+  .hero-container {
+    flex-direction: column;
+    padding: 60px 30px;
+    min-height: auto;
+    text-align: center;
+  }
+
+  .hero-left {
+    max-width: 100%;
+  }
+
+  .hero-right img {
+    max-width: 360px;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+}
+
+/* ================= MODULE CARD ================= */
+
+.module-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  height: 100%;
+}
+
+.module-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+.mock-title {
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.mock-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.blur-disabled {
+  filter: blur(2px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+
+
+/* ================= COMMON SECTION TITLE ================= */
+
+.section-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 60px 0 30px;
+}
+
+/* ================= FEATURE / WHY CHOOSE GRID ================= */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 240px)); /* 🔑 smaller cards */
+  gap: 24px;
+  margin-bottom: 40px;
+  justify-content: center; /* 🔑 keeps grid centered */
+}
+
+
+/* ================= FEATURE CARD ================= */
+
+.feature-card {
+  background: #ffffff;
+  padding: 22px 18px;
+  border-radius: 16px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+
+  font-size: 15px;
+  font-weight: 500;
+  color: #0f172a;
+
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  width: 100px;
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e0edff;
+  border-radius: 50%;
+}
+
+.feature-icon img {
+  width: 100px;
+  height: 110px;
+}
+

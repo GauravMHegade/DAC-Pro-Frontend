@@ -1,0 +1,113 @@
+/* ================= ADMIN PANEL ================= */
+
+.admin-heading {
+  color: white;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* TAB BAR */
+.admin-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.admin-tab-btn {
+  padding: 10px 28px;
+  border-radius: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: white;
+}
+
+.admin-tab-btn.active {
+  background: white;
+  color: #1E3A8A;
+  border-color: white;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* CONTENT AREA */
+.admin-content {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+/* ADD FORM ROW */
+.admin-form-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-form-row .form-control,
+.admin-form-row .form-select {
+  max-width: 380px;
+}
+
+/* QUESTION FORM */
+.admin-question-form {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 24px;
+  color: #0f172a;
+}
+
+.admin-question-form h6 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #1E3A8A;
+}
+
+/* TABLE */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 14px;
+  color: black;
+}
+
+.admin-table thead {
+  background: #1E3A8A;
+  color: black;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+  color: black;
+}
+
+.admin-table tbody tr:hover {
+  background: #f0f4ff;
+}
+
+.admin-table .q-text {
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
