@@ -19,7 +19,8 @@ function Home() {
   const modulesRef = useRef(null);
 
 
-  const user = sessionStorage.getItem("user");
+const user = JSON.parse(sessionStorage.getItem("user"));
+const isAdmin = user?.role === "ADMIN";
 
   // ================= LOAD MODULES =================
   useEffect(() => {
@@ -46,35 +47,46 @@ function Home() {
 
   // ================= NAVIGATION HANDLERS =================
   const startPractice = (moduleId) => {
-    if (!user) nav("/login");
-    else nav(`/quiz/${moduleId}`);
-  };
+  if (!user) {
+    nav("/login");
+    return;
+  }
+
+  if (isAdmin) {
+    alert("Admins cannot take tests.");
+    return;
+  }
+
+  nav(`/quiz/${moduleId}`);
+};
 
   const startDemo = (moduleId) => {
-    nav(`/demo/${moduleId}`);
-  };
 
-//   const startMock = async (moduleId, mockNo) => {
-//     const userObj = JSON.parse(sessionStorage.getItem("user"));
+  // Free Test is allowed only before login
+  if (user) {
+    alert("Free Test is available only before login.");
+    return;
+  }
 
-//     const res = await checkMockAttempt(
-//       userObj.userId,
-//       moduleId,
-//       mockNo
-//     );
+  nav(`/demo/${moduleId}`);
+};
 
-//     if (res.attempted) {
-//       const confirmRetry = window.confirm(
-//         `You have already attempted Mock ${mockNo}.
-// Do you want to reattempt?`
-//       );
-//       if (!confirmRetry) return;
-//     }
 
-//     nav(`/mock/${moduleId}/${mockNo}`);
-//   };
 
+// const startMock = (moduleId, mockNo) => {
+//   nav(`/mock/${moduleId}/${mockNo}`);
+// };
 const startMock = (moduleId, mockNo) => {
+  if (!user) {
+    nav("/login");
+    return;
+  }
+
+  if (isAdmin) {
+    alert("Admins cannot take tests.");
+    return;
+  }
+
   nav(`/mock/${moduleId}/${mockNo}`);
 };
 
@@ -185,30 +197,34 @@ const startMock = (moduleId, mockNo) => {
                 </button>
               )}
 
-              <button
-                className="btn btn-primary w-100"
-                onClick={() => startPractice(m.moduleId)}
-              >
-                Practice Test
-              </button>
+              {!isAdmin && (
+  <button
+    className="btn btn-primary w-100"
+    onClick={() => startPractice(m.moduleId)}
+  >
+    Practice Test
+  </button>
+)}
 
               <hr />
 
-              <div className={`mock-section ${!user ? "blur-disabled" : ""}`}>
-                <p className="mock-title">Mock Tests</p>
+              {!isAdmin && (
+  <div className={`mock-section ${!user ? "blur-disabled" : ""}`}>
+    <p className="mock-title">Mock Tests</p>
 
-                <div className="mock-buttons">
-                  {[1, 2, 3, 4, 5].map((mockId) => (
-                    <button
-                      key={mockId}
-                      className="btn btn-outline-primary btn-sm"
-                      onClick={() => startMock(m.moduleId, mockId)}
-                    >
-                      Mock {mockId}
-                    </button>
-                  ))}
-                </div>
-              </div>
+    <div className="mock-buttons">
+      {[1, 2, 3, 4, 5].map((mockId) => (
+        <button
+          key={mockId}
+          className="btn btn-outline-primary btn-sm"
+          onClick={() => startMock(m.moduleId, mockId)}
+        >
+          Mock {mockId}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
 
             </div>
           </div>

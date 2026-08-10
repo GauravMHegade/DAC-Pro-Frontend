@@ -219,9 +219,24 @@ function QuestionsTab() {
             <option key={m.moduleId} value={m.moduleId}>{m.moduleName}</option>
           ))}
         </select>
-        <button className="btn btn-success" onClick={() => { setShowForm(true); setEditId(null); setForm(EMPTY_Q); }}>
+        {/* <button className="btn btn-success" onClick={() => { setShowForm(true); setEditId(null); setForm(EMPTY_Q); }}>
           + Add Question
-        </button>
+        </button> */}
+        <button
+  className="btn btn-success"
+  disabled={!filterMod}
+  onClick={() => {
+    setShowForm(true);
+    setEditId(null);
+
+    setForm({
+      ...EMPTY_Q,
+      moduleId: filterMod
+    });
+  }}
+>
+  + Add Question
+</button>
       </div>
 
       {/* ADD / EDIT FORM */}

@@ -1,134 +1,272 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { registerUser } from "../services/api";
 
 function Register() {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+    const [fullName, setFullName] = useState("");
+    const [email, setEmail] = useState("");
+    const [mobile, setMobile] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-  const nav = useNavigate();
+    const nav = useNavigate();
 
-  // Email validation
-  const isValidEmail = (email) => {
-    return email.endsWith("@gmail.com");
-  };
+    // ==========================================
+    // EMAIL VALIDATION
+    // ==========================================
 
-  // Password validation
-  const isStrongPassword = (password) => {
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()_+\-=])[A-Za-z\d@$!%*?&#^()_+\-=]{8,}$/;
-    return regex.test(password);
-  };
+    const isValidEmail = (email) => {
+        return email.endsWith("@gmail.com");
+    };
 
-  const submit = async () => {
-    if (!fullName || !email || !mobile || !password || !confirmPassword) {
-      alert("All fields are required");
-      return;
-    }
+    // ==========================================
+    // PASSWORD VALIDATION
+    // ==========================================
 
-    if (!isValidEmail(email)) {
-      alert("Email must be a valid @gmail.com address");
-      return;
-    }
+    const isStrongPassword = (password) => {
+        const regex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()_+\-=])[A-Za-z\d@$!%*?&#^()_+\-=]{8,}$/;
 
-    if (!/^\d{10}$/.test(mobile)) {
-      alert("Mobile number must be exactly 10 digits");
-      return;
-    }
+        return regex.test(password);
+    };
 
-    if (!isStrongPassword(password)) {
-      alert(
-        "Password must contain:\n" +
-          "- Minimum 8 characters\n" +
-          "- Uppercase letter\n" +
-          "- Lowercase letter\n" +
-          "- Number\n" +
-          "- Symbol"
-      );
-      return;
-    }
+    // ==========================================
+    // REGISTER
+    // ==========================================
 
-    if (password !== confirmPassword) {
-      alert("Password and Confirm Password do not match");
-      return;
-    }
+    const submit = async (e) => {
 
-    const res = await fetch("https://dac-pro-backend.onrender.com/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        fullName,
-        email,
-        password,
-        mobileNumber: mobile
-      })
-    });
+        e.preventDefault();
 
-    if (res.ok) {
-      alert("Registration successful. Please login.");
-      nav("/login");
-    } else {
-      alert("Registration failed");
-    }
-  };
+        // ------------------------------------------
+        // REQUIRED FIELDS
+        // ------------------------------------------
 
-  return (
-    <div className="page-container">
-      <div className="card col-md-5 mx-auto p-4 shadow">
-        <h3 className="text-center mb-4">Register</h3>
+        if (
+            !fullName ||
+            !email ||
+            !mobile ||
+            !password ||
+            !confirmPassword
+        ) {
+            alert("All fields are required");
+            return;
+        }
 
-        <input
-          className="form-control mb-3"
-          placeholder="Full Name"
-          onChange={(e) => setFullName(e.target.value)}
-        />
+        // ------------------------------------------
+        // EMAIL VALIDATION
+        // ------------------------------------------
 
-        <input
-          type="email"
-          className="form-control mb-3"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        if (!isValidEmail(email)) {
+            alert(
+                "Email must be a valid @gmail.com address"
+            );
+            return;
+        }
 
-        {/* 🔑 MOBILE NUMBER: NUMBERS ONLY + MAX 10 */}
-        <input
-          type="text"
-          className="form-control mb-3"
-          placeholder="Mobile Number"
-          value={mobile}
-          maxLength={10}
-          onChange={(e) => {
-            const value = e.target.value.replace(/\D/g, "");
-            setMobile(value);
-          }}
-        />
+        // ------------------------------------------
+        // MOBILE VALIDATION
+        // ------------------------------------------
 
-        <input
-          type="password"
-          className="form-control mb-3"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        if (!/^\d{10}$/.test(mobile)) {
+            alert(
+                "Mobile number must be exactly 10 digits"
+            );
+            return;
+        }
 
-        <input
-          type="password"
-          className="form-control mb-3"
-          placeholder="Confirm Password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
+        // ------------------------------------------
+        // PASSWORD VALIDATION
+        // ------------------------------------------
 
-        <button className="btn btn-primary w-100" onClick={submit}>
-          Register
-        </button>
+        if (!isStrongPassword(password)) {
+            alert(
+                "Password must contain:\n" +
+                "- Minimum 8 characters\n" +
+                "- Uppercase letter\n" +
+                "- Lowercase letter\n" +
+                "- Number\n" +
+                "- Symbol"
+            );
+            return;
+        }
 
-        <p className="text-center mt-3">
-          Already registered? <Link to="/login">Login here</Link>
-        </p>
-      </div>
-    </div>
-  );
+        // ------------------------------------------
+        // CONFIRM PASSWORD
+        // ------------------------------------------
+
+        if (password !== confirmPassword) {
+            alert(
+                "Password and Confirm Password do not match"
+            );
+            return;
+        }
+
+        // ------------------------------------------
+        // API REQUEST
+        // ------------------------------------------
+
+        try {
+
+            const response = await registerUser({
+
+                fullName: fullName,
+
+                email: email,
+
+                mobileNumber: mobile,
+
+                password: password
+
+            });
+
+            console.log(
+                "Registration successful:",
+                response
+            );
+
+            alert(
+                "Registration successful. Please login."
+            );
+
+            nav("/login");
+
+        } catch (error) {
+
+            console.error(
+                "Registration error:",
+                error
+            );
+
+            alert(
+                error.message ||
+                "Registration failed"
+            );
+        }
+    };
+
+    // ==========================================
+    // UI
+    // ==========================================
+
+    return (
+        <div className="container mt-5">
+
+            <div className="row justify-content-center">
+
+                <div className="col-md-6">
+
+                    <div className="card p-4 shadow">
+
+                        <h2 className="text-center mb-4">
+                            Register
+                        </h2>
+
+                        {/* FULL NAME */}
+
+                        <input
+                            className="form-control mb-3"
+                            placeholder="Full Name"
+                            value={fullName}
+                            onChange={(e) =>
+                                setFullName(
+                                    e.target.value
+                                )
+                            }
+                        />
+
+                        {/* EMAIL */}
+
+                        <input
+                            type="email"
+                            className="form-control mb-3"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(
+                                    e.target.value
+                                )
+                            }
+                        />
+
+                        {/* MOBILE NUMBER */}
+
+                        <input
+                            type="text"
+                            className="form-control mb-3"
+                            placeholder="Mobile Number"
+                            value={mobile}
+                            maxLength={10}
+                            onChange={(e) => {
+
+                                const value =
+                                    e.target.value.replace(
+                                        /\D/g,
+                                        ""
+                                    );
+
+                                setMobile(value);
+                            }}
+                        />
+
+                        {/* PASSWORD */}
+
+                        <input
+                            type="password"
+                            className="form-control mb-3"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(
+                                    e.target.value
+                                )
+                            }
+                        />
+
+                        {/* CONFIRM PASSWORD */}
+
+                        <input
+                            type="password"
+                            className="form-control mb-3"
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) =>
+                                setConfirmPassword(
+                                    e.target.value
+                                )
+                            }
+                        />
+
+                        {/* REGISTER BUTTON */}
+
+                        <button
+                            type="button"
+                            className="btn btn-primary w-100"
+                            onClick={submit}
+                        >
+                            Register
+                        </button>
+
+                        {/* LOGIN LINK */}
+
+                        <p className="text-center mt-3">
+
+                            Already registered?{" "}
+
+                            <Link to="/login">
+                                Login here
+                            </Link>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    );
 }
 
 export default Register;

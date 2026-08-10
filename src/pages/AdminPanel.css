@@ -87,9 +87,17 @@
   color: black;
 }
 
-.admin-table thead {
+/* .admin-table thead {
   background: #1E3A8A;
   color: black;
+} */
+ .admin-table thead {
+  background: #1E3A8A;
+  color: white;
+}
+
+.admin-table thead th {
+  color: white;
 }
 
 .admin-table th,

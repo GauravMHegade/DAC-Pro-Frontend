@@ -9,9 +9,11 @@ const isValidEmail = (email) => {
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const nav = useNavigate();
 
   // ================= NORMAL LOGIN =================
+
   const submit = async () => {
     if (!email || !password) {
       alert("Email and password are required");
@@ -24,27 +26,38 @@ function Login() {
     }
 
     try {
-      const res = await loginUser({ email, password });
+      const res = await loginUser({
+        email,
+        password
+      });
 
-      // 🔐 loginUser already stores token + user
+      // loginUser already stores token + user
       if (!res || !res.token) {
         alert("Invalid email or password");
         return;
       }
 
-      nav("/"); // go to home
+      // Both USER and ADMIN go to homepage
+      nav("/");
+
     } catch (err) {
-  alert(err.message || "Server error. Please try again later.");
-}
+      alert(
+        err.message ||
+        "Server error. Please try again later."
+      );
+    }
   };
 
   // ================= GOOGLE LOGIN =================
+
   useEffect(() => {
     /* global google */
+
     if (window.google) {
       google.accounts.id.initialize({
         client_id:
           "964860875768-af7ouf7727dr5sgma67ot6bucgkab7mt.apps.googleusercontent.com",
+
         callback: handleGoogleLogin
       });
 
@@ -60,59 +73,96 @@ function Login() {
   }, []);
 
   const handleGoogleLogin = async (response) => {
-    const userObject = JSON.parse(
-      atob(response.credential.split(".")[1])
-    );
+    try {
+      const userObject = JSON.parse(
+        atob(response.credential.split(".")[1])
+      );
 
-    const googleUser = {
-      fullName: userObject.name,
-      email: userObject.email
-    };
+      const googleUser = {
+        fullName: userObject.name,
+        email: userObject.email
+      };
 
-    const res = await googleLogin(googleUser);
+      const res = await googleLogin(googleUser);
 
-    // 🔐 googleLogin already stores token + user
-    if (!res || !res.token) {
-      alert("Google login failed");
-      return;
+      // googleLogin already stores token + user
+      if (!res || !res.token) {
+        alert("Google login failed");
+        return;
+      }
+
+      // Both USER and ADMIN go to homepage
+      nav("/");
+
+    } catch (err) {
+      alert(
+        err.message ||
+        "Google login failed"
+      );
     }
-
-    nav("/");
   };
 
+  // ================= UI =================
+
   return (
-    <div className="page-container">
-      <div className="card col-md-5 mx-auto p-4 shadow">
-        <h3 className="text-center mb-4">Login</h3>
+    <div>
+      <div className="row justify-content-center">
 
-        <input
-          type="email"
-          className="form-control mb-3"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <div className="col-md-5">
 
-        <input
-          type="password"
-          className="form-control mb-3"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <div className="card p-4">
 
-        <button className="btn btn-primary w-100 mb-3" onClick={submit}>
-          Login
-        </button>
+            <h3 className="text-center mb-4">
+              Login
+            </h3>
 
-        <div className="text-center mb-2 fw-bold">OR</div>
+            <input
+              type="email"
+              className="form-control mb-3"
+              placeholder="Email"
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
+            />
 
-        <div
-          id="googleLoginBtn"
-          className="d-flex justify-content-center"
-        ></div>
+            <input
+              type="password"
+              className="form-control mb-3"
+              placeholder="Password"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+            />
 
-        <p className="text-center mt-3">
-          New user? <Link to="/register">Register here</Link>
-        </p>
+            <button
+              className="btn btn-primary w-100 mb-3"
+              onClick={submit}
+            >
+              Login
+            </button>
+
+            <div className="text-center mb-2 fw-bold">
+              OR
+            </div>
+
+            <div
+              id="googleLoginBtn"
+              className="d-flex justify-content-center"
+            ></div>
+
+            <p className="text-center mt-3">
+              New user?{" "}
+              <Link to="/register">
+                Register here
+              </Link>
+            </p>
+
+          </div>
+
+        </div>
+
       </div>
     </div>
   );
