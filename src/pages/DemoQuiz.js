@@ -20,7 +20,7 @@ function DemoQuiz() {
       try {
         setLoading(true);
 
-        const response = await fetch(`${BASE_URL}/modules`);
+        const response = await fetch(`${BASE_URL}/quiz/demo/${moduleId}`);
 
         if (!response.ok) {
           throw new Error("Failed to load demo questions");
