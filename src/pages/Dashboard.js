@@ -43,6 +43,7 @@ function Dashboard() {
       try {
         const attemptData = await getAttemptSummary(user.userId);
         const statsData = await getLatestResultStats(user.userId);
+        console.log("LATEST STATS:", statsData);
         const moduleData = await getModules();
 
         setAttempts(attemptData || []);
@@ -115,7 +116,7 @@ function Dashboard() {
               <b>{stats.moduleName}</b>
             </p>
 
-            <p>Score: <b>{stats.score} / 40</b></p>
+            <p>Score: <b>{stats.latestScore} / 40</b></p>
             <p>Attempted: {stats.attempted}</p>
             <p>Unattempted: {stats.unattempted}</p>
 
