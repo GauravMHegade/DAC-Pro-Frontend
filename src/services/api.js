@@ -1,5 +1,5 @@
 // const BASE_URL = "https://dac-pro-backend.onrender.com/api";
-const BASE_URL = "http://localhost:8282/api";
+export const BASE_URL = "https://dac-pro-backend.onrender.com";
 
 /* ======================================================
    TOKEN HELPERS

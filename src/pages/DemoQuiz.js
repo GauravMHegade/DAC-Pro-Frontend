@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Question from "../components/Question";
+import { BASE_URL } from "../services/api";
 
 function DemoQuiz() {
   const { moduleId } = useParams();
@@ -19,9 +20,7 @@ function DemoQuiz() {
       try {
         setLoading(true);
 
-        const response = await fetch(
-          `http://localhost:8282/api/quiz/demo/${moduleId}`
-        );
+        const response = await fetch(`${BASE_URL}/modules`);
 
         if (!response.ok) {
           throw new Error("Failed to load demo questions");
